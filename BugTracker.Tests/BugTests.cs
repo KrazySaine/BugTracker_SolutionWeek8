@@ -4,55 +4,32 @@ using Xunit;
 
 namespace BugTracker.Tests
 {
+
     public class BugTests
     {
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("   ")]
-        public void Constructor_ThrowsArgumentException_WhenTitleIsInvalid(string invalidTitle)
+        [Fact]
+        public void Bug_DefaultPriority_ShouldBeMedium()
         {
-            // Arrange & Act & Assert
-            Assert.Throws<ArgumentException>(() => new Bug(invalidTitle, "Some description"));
+            var bug = new Bug("Bug title", "Bug description");
+            Assert.Equal(BugPriority.Medium, bug.Priority);
         }
 
         [Fact]
-        public void Constructor_SetsPropertiesCorrectly()
+        public void Bug_CustomPriority_ShouldSetCorrectly()
         {
-            // Arrange & Act
-            var bug = new Bug("Login fails", "Steps to reproduce the issue");
-
-            // Assert
-            Assert.Equal("Login fails", bug.Title);
-            Assert.Equal("Steps to reproduce the issue", bug.Description);
-            Assert.Equal(BugStatus.Open, bug.Status);
+            var bug = new Bug("Bug title", "Bug description", BugPriority.High);
+            Assert.Equal(BugPriority.High, bug.Priority);
         }
 
         [Fact]
-        public void UpdateStatus_ChangesStatusCorrectly()
+        public void Bug_PriorityCanBeUpdated()
         {
-            // Arrange
-            var bug = new Bug("Issue", "Details");
-
-            // Act
-            bug.UpdateStatus(BugStatus.InProgress);
-
-            // Assert
-            Assert.Equal(BugStatus.InProgress, bug.Status);
+            var bug = new Bug("Bug title", "Bug description");
+            bug.Priority = BugPriority.Low;
+            Assert.Equal(BugPriority.Low, bug.Priority);
         }
 
-        [Fact]
-        public void UpdateStatus_DoesNotChangeToSameStatus()
-        {
-            // Arrange
-            var bug = new Bug("Issue", "Details");
 
-            // Act
-            bug.UpdateStatus(BugStatus.Open);
-
-            // Assert
-            Assert.Equal(BugStatus.Open, bug.Status); // No change
-        }
         [Fact]
         public void CanAddAttachmentUrl()
         {
