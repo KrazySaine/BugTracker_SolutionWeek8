@@ -10,6 +10,8 @@ namespace BugTracker.Core
         public BugStatus Status { get; private set; }
         public string AssignedToDeveloper { get; set; }  // New property
 
+        public string? AttachmentUrl { get; set; }
+
         public Bug(string title, string description)
         {
             if (string.IsNullOrWhiteSpace(title))
