@@ -53,6 +53,13 @@ namespace BugTracker.Tests
             // Assert
             Assert.Equal(BugStatus.Open, bug.Status); // No change
         }
+        [Fact]
+        public void CanAddAttachmentUrl()
+        {
+            var bug = new Bug();
+            bug.AttachmentUrl = "http://example.com/image.png";
+            Assert.Equal("http://example.com/image.png", bug.AttachmentUrl);
+        }
 
         // TODO: Add test to verify default value of AssignedToDeveloper is null
 
